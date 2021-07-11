@@ -84,6 +84,6 @@ jobs:
         wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/develop/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | bash
         # try to build
         dotnet add package MonoGame.Framework.DesktopGL --version 3.8.0.1641
-        dotnet build
+        dotnet build TextureSplitter.sln
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
