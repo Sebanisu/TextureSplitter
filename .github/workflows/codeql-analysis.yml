@@ -64,6 +64,7 @@ jobs:
     #    uses a compiled language
 
     - run: |
+        ls
         # Install .NET SDK
         wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O /tmp/packages-microsoft-prod.deb
         sudo dpkg -i /tmp/packages-microsoft-prod.deb
@@ -83,7 +84,9 @@ jobs:
         sudo apt install wine64 p7zip-full
         wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/develop/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | bash
         # try to build
-        dotnet add package MonoGame.Framework.DesktopGL --version 3.8.0.1641
+        #dotnet add package MonoGame.Framework.DesktopGL --version 3.8.0.1641
+        ls
         dotnet build TextureSplitter.sln
+        
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
