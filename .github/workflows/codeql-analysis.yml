@@ -66,27 +66,40 @@ jobs:
     - run: |
         ls
         # Install .NET SDK
-        wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O /tmp/packages-microsoft-prod.deb
-        sudo dpkg -i /tmp/packages-microsoft-prod.deb
-        sudo apt update
-        sudo apt-get install -y apt-transport-https
-        sudo apt-get install -y dotnet-sdk-5.0
+        #wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O /tmp/packages-microsoft-prod.deb
+        #sudo dpkg -i /tmp/packages-microsoft-prod.deb
+        #sudo apt update
+        #sudo apt-get install -y apt-transport-https
+        #sudo apt-get install -y dotnet-sdk-5.0
         # Install Mono
-        sudo apt install gnupg ca-certificates
-        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-        echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-        sudo apt update
-        sudo apt install -y mono-devel
+        #sudo apt install gnupg ca-certificates
+        #sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+        #echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+        #sudo apt update
+        #sudo apt install -y mono-devel
         # Install MGCB Editor
-        dotnet tool install --global dotnet-mgcb-editor
-        mgcb-editor --register
+        #dotnet tool install --global dotnet-mgcb-editor
+        #mgcb-editor --register
         # Set up Wine for effect compilation
-        sudo apt install wine64 p7zip-full
-        wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/develop/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | bash
+        #sudo apt install wine64 p7zip-full
+        #wget -qO- https://raw.githubusercontent.com/MonoGame/MonoGame/develop/Tools/MonoGame.Effect.Compiler/mgfxc_wine_setup.sh | bash
         # try to build
         #dotnet add package MonoGame.Framework.DesktopGL --version 3.8.0.1641
-        ls
-        dotnet build TextureSplitter.sln
+        #wget https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/monogame-sdk.run
+        #dotnet build TextureSplitter.sln
+        sudo apt update
+        sudo apt-get --assume-yes install nuget mono-complete mono-devel gtk-sharp3 zip ffmpeg
+        echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+        sudo apt-get --assume-yes install ttf-mscorefonts-installer
+        wget https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/monogame-sdk.run
+        chmod +x monogame-sdk.run
+        sudo ./monogame-sdk.run --noexec --keep --target ./monogame
+        cd monogame
+        echo Y | sudo ./postinstall.sh
+        cd ..  
+        nuget restore
+        msbuild
+        
         
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
