@@ -12,7 +12,7 @@ This project uses [Monogame 3.7.1](https://github.com/MonoGame/MonoGame/releases
 To build on linux:
 ```sh
 sudo apt update
-sudo apt-get --assume-yes install nuget mono-complete mono-devel gtk-sharp3 zip ffmpeg
+sudo apt-get --assume-yes install nuget mono-complete mono-devel gtk-sharp3 ffmpeg
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
 sudo apt-get --assume-yes install ttf-mscorefonts-installer
 wget https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/monogame-sdk.run
